@@ -1,0 +1,53 @@
+<% include ./partials/header.ejs %>
+  <div class="w-full h-screen bg-black text-white relative overflow-hidden">
+    
+    <!-- Progress Bar Container -->
+    <div class="absolute top-2 left-2 right-2 h-1 flex gap-1 z-20">
+        <div class="w-full h-full bg-zinc-600 rounded-full overflow-hidden relative">
+            <div id="progress" class="absolute top-0 left-0 h-full bg-white transition-all ease-linear" style="width: 0%; transition-duration: 3s;"></div>
+        </div>
+    </div>
+
+    <!-- Header Overlay -->
+    <div class="absolute top-6 left-4 right-4 flex items-center justify-between z-10">
+      <div class="flex items-center gap-3 drop-shadow-md">
+        <div class="w-10 h-10 rounded-full overflow-hidden border border-white">
+          <% if (story.user && story.user.picture) { %>
+            <img class="w-full h-full object-cover" src="/images/uploads/<%= story.user.picture %>" alt="">
+          <% } else { %>
+            <img class="w-full h-full object-cover" src="/images/uploads/<%= user.picture %>" alt="">
+          <% } %>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold tracking-wide">
+            <% if (story.user && story.user.username) { %>
+              <%= story.user.username %>
+            <% } else { %>
+              <%= user.username %>
+            <% } %>
+          </h4>
+        </div>
+      </div>
+      <a href="/feed" class="text-white text-2xl font-light drop-shadow-md pb-4 shrink-0">&times;</a>
+    </div>
+
+    <!-- Story Image -->
+    <div class="w-full h-full flex items-center justify-center">
+      <img class="w-full h-full object-cover" src="/images/uploads/<%= story.story %>" alt="">
+    </div>
+
+  </div>
+
+  <script>
+    // Trigger progress bar animation
+    setTimeout(() => {
+        document.getElementById('progress').style.width = '100%';
+    }, 50);
+
+    // Auto-skip after 3 seconds
+    setTimeout(() => {
+        window.location.href = '/feed';
+    }, 3050);
+  </script>
+
+<% include ./partials/footer.ejs %>
